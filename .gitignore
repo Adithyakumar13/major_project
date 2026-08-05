@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.env/
+.conda/
+miniconda3/
+
+# Checkpoints
+checkpoints/
+
+# Logs
+logs/
+runs/
+
+# Dataset
+*.npz
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+f1tenth_gym/
+f1tenth_gym/setup.py
+
+__pycache__/
+*.pyc
+
+
+logs/
+checkpoints/
+logs.monitor.csv
+.vscode/
+
+docs/html/
+docs/xml/
+gym/f110_gym.egg-info/
+
+Dockerfile
+
+docs/
+gym/
+LICENSE
