@@ -12,7 +12,6 @@ class PhysicsEncoder(nn.Module):
             nn.Linear(6, 32),
             nn.ReLU(),
             nn.Linear(32, 8),
-            nn.ReLU(),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

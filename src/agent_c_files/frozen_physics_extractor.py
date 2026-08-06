@@ -25,11 +25,12 @@ class FrozenPhysicsExtractor(BaseFeaturesExtractor):
         [108:111] vx, vy, wz
         [111:117] normalized physics params
 
-    output: lidar_feat(64) + frozen_embedding(8) = 72
+    output: lidar_feat(64) + frozen_embedding(16) = 80
     """
 
     def __init__(self, observation_space: spaces.Box,
                  encoder_path: str = ENCODER_PATH):
+        # change features_dim to 64 + 8 = 72
         super().__init__(observation_space, features_dim=72)
 
         # lidar encoder — trained with PPO

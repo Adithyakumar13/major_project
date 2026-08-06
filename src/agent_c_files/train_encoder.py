@@ -31,18 +31,25 @@ def train():
     device = torch.device('cpu')
 
     # load data
+    # load data
     print("Loading data...")
     data     = np.load(DATA_PATH)
     obs      = torch.tensor(data['obs'],      dtype=torch.float32)
     actions  = torch.tensor(data['actions'],  dtype=torch.float32)
     next_obs = torch.tensor(data['next_obs'], dtype=torch.float32)
 
-    # inputs to encoder/predictor
-    params  = obs[:, 111:117]    # normalized physics params (6,)
-    vxvywz  = obs[:, 108:111]    # current vx, vy, wz (3,)
+    # targets: delta wz and delta vx
+    delta_wz = next_obs[:, 110:111] - obs[:, 110:111]
+    delta_vx = next_obs[:, 108:109] - obs[:, 108:109]
+    targets  = torch.cat([delta_wz, delta_vx], dim=-1)
 
-    # targets: next vy, wz
-    targets = next_obs[:, 109:111]  # (N, 2)
+    # filter to cornering transitions only
+    mask    = (torch.abs(actions[:, 0]) > 0.02) | (torch.abs(obs[:, 110:111].squeeze()) > 0.05)
+    params  = obs[mask, 111:117]
+    vxvywz  = obs[mask, 108:111]
+    actions = actions[mask]
+    targets = targets[mask]
+    print(f"Using {mask.sum()} / {len(mask)} transitions after filtering")
 
     dataset = TensorDataset(params, vxvywz, actions, targets)
 
