@@ -42,7 +42,6 @@ def collect():
             next_obs_list.append(next_obs.copy())
             collected += 1
 
-        collected += 1
 
         if collected % 10_000 == 0:
             print(f"  {collected}/{N_TRANSITIONS}")
